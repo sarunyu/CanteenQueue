@@ -1,0 +1,99 @@
+<html>
+<script src="jquery-2.1.0.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<script src="socket.io.js"></script>
+<script>
+var queue = 0
+var socket = io.connect('http://192.168.200.104:81');
+
+
+socket.on('data', function (data) {
+	
+console.log(data);
+if (data[0]==1){
+
+$('#table_div > tbody:last').append('<tr id=tr_'+data[1]+'><td align=center>'+data[1]+'</td>'+
+					'<td>'+data[2]+'</td>'+
+					'<td align=center>'+data[3]+'</td>'+
+					'<td>'+data[4]+'</td></tr>');
+}
+
+if (data[0]==0){
+$('#tr_' + data[1]).remove();
+}
+
+$('#aq').text(data[5]);
+$('#cq').text(data[6]);  
+
+});
+
+$( document ).ready(function() {
+div.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+div.mozRequestFullScreen();
+div.msRequestFullscreen();
+div.requestFullscreen(); // standard
+});
+
+</script>
+
+
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0 0;
+    }
+
+    .container-fluid {
+        height: 100%;
+        display: table;
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .row-fluid {
+        height: 100%;
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+    }
+
+    .centering {
+        float: none;
+        margin: 0 auto;
+    }
+</style>
+<body>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div align=center class="offset3 span6 centering">
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-2"><h1>All Queue</h1></div>
+  <div class="col-md-1"><h1 id=aq>0</h1></div>
+  <div class="col-md-5"></div>
+</div>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-2"><h1>Current Queue</h1></div>
+  <div class="col-md-1"><h1 id=cq>0</h1></div>
+  <div class="col-md-5"></div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
